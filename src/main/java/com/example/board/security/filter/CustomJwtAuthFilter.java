@@ -7,14 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class CustomJwtAuthFilter  {
-
-//    private final ObjectMapper objectMapper = new ObjectMapper();
-//
-//    public CustomJwtAuthFilter(AuthenticationManager authenticationManager){
-//        super(authenticationManager);
-//    }
-//
-//    @Override
-//    public void doFilterInternal(){}
+    // jwt 복호화해서 확인 - 권한부여하는 인가 필터
 
 }
