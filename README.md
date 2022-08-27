@@ -13,4 +13,4 @@
   
 - AccessToken 검증 과정
   
-  <img src = "img/AccessJWT검증.jpg">
+<img src = "./img/AccessJWT검증_인가.jpg">
