@@ -55,7 +55,6 @@ public class JwtTokenProvider {
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
             decodedJWT = jwtVerifier.verify(TokenStringValue);
         } catch (Exception e) {
-            System.out.println("유효한 토큰이 아닙니다");
             throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
         }
 

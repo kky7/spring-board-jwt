@@ -39,6 +39,7 @@ public class CustomJwtAuthFilter  extends BasicAuthenticationFilter {
 
         // 토큰 존재하는지 확인 없으면 filter chain으로 리턴
         if(jwtHeader == null || !jwtHeader.startsWith(TokenProperties.TOKEN_TYPE)){
+            System.out.println("헤더에 값 없음");
             chain.doFilter(request,response);
             return;
         }
