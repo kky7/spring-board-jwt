@@ -18,11 +18,10 @@ public class UserController {
 
     private final UserService userService;
 
-    // 로그인
-//    @PostMapping("/login") -> 없어도 됨
-//    public ResponseDto<?> login(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request){
-//        return userService.login(userLoginDto, request);
-//    }
+    // 로그인 맵핑이 없어도 된다.
+    // Form login을 사용하여 인증을 한다.
+    // -> UsernamePasswordAuthenticationFilter를 이용하여 인증을 한다.
+    // UsernamePasswordAuthenticationFilter를 상속받는 Login Filter에서  HttpServletRequest request를 통해 username과 password를 받는다.
 
     //회원가입 - 모두 접근 가능
     @PostMapping("/signup")

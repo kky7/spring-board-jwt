@@ -3,16 +3,11 @@ package com.example.board.service;
 import com.example.board.dto.ResponseDto;
 import com.example.board.dto.UserLoginDto;
 import com.example.board.dto.UserSignupDto;
-import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
 import com.example.board.repository.UserRepository;
-import com.example.board.security.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -40,12 +35,6 @@ public class UserService {
     private  boolean isSamePassword(String password, String ConfirmPassword){
         return password.equals(ConfirmPassword);
     }
-
-     // login
-//    @Transactional
-//    public ResponseDto<?> login(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request){
-//        return ResponseDto.success(null);
-//    }
 
     //회원가입
     @Transactional

@@ -5,7 +5,7 @@ import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
 import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
-import com.example.board.security.jwt.JwtTokenUtils;
+import com.example.board.security.provider.JwtTokenProvider;
 import com.example.board.security.jwt.TokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -50,9 +50,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
 
         //AccessToken 생성
-        final String accessToken = JwtTokenUtils.generateAccessJwtToken(userDetails);
+        final String accessToken = JwtTokenProvider.generateAccessJwtToken(userDetails);
         //RefreshToken 생성
-        final String refreshToken = JwtTokenUtils.generateRefreshJwtToken(userDetails);
+        final String refreshToken = JwtTokenProvider.generateRefreshJwtToken(userDetails);
 
 
         // Response 헤더에 Access, Refresh 토큰 담아줌

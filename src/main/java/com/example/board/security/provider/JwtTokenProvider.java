@@ -1,12 +1,13 @@
-package com.example.board.security.jwt;
+package com.example.board.security.provider;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.board.security.UserDetailsImpl;
+import com.example.board.security.jwt.TokenProperties;
 
 import java.util.Date;
 
-public final class JwtTokenUtils {
+public final class JwtTokenProvider {
 
     //Access Token 생성
     public static String generateAccessJwtToken(UserDetailsImpl userDetails){

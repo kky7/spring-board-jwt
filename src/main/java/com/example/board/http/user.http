@@ -2,7 +2,7 @@ POST http://localhost:8080/board/member/signup
 Content-Type: application/json
 
 {
-  "username":"kiyeon",
+  "username":"kyblog",
   "password":"1234",
   "passwordConfirm":"1234"
 }
@@ -12,7 +12,7 @@ POST http://localhost:8080/board/member/login
 Content-Type: application/json
 
 {
-  "username":"kiyeon",
+  "username":"kyblog",
   "password":"1234"
 }
 
