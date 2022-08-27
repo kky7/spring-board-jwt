@@ -74,8 +74,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         response.setCharacterEncoding("UTF-8");
 
         ResponseDto<Users> responseDto = new ResponseDto<>(true, user, null);
-        String result = objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(responseDto);
-        response.getWriter().write(result);
+        String httpResponse = objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(responseDto);
+        response.getWriter().write(httpResponse);
     }
 
 }

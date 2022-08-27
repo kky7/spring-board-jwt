@@ -5,12 +5,12 @@
 # 인증, 인가 구조
 - 코드 구조
   
-<img src = "./img/인증_인가_과정.jpg">
+<img src = "./img/jwtstructure.jpg">
   
 - 인증 과정
   
-<img src = "./img/인증과정.jpg">
+<img src = "./img/authentication.jpg">
   
 - AccessToken 검증 과정
   
-<img src = "./img/AccessJWT검증_인가.jpg">
+<img src = "./img/authorization.jpg">

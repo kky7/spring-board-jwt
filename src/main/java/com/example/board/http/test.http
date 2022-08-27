@@ -1,0 +1,30 @@
+POST http://localhost:8080/board/member/signup
+Content-Type: application/json
+
+{
+  "username":"kkk12",
+  "password":"12345",
+  "passwordConfirm":"12345"
+}
+
+########
+POST http://localhost:8080/board/member/login
+Content-Type: application/json
+
+{
+  "username":"kkk12",
+  "password":"12345"
+}
+
+#######
+POST http://localhost:8080/board/auth/post
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYxMjk3NywiVVNFUl9OQU1FIjoia2trMTIifQ.eyfRltF3t3Gc7DLEbfQvhQu303rkQhoQNEyTmZPqJxo
+Content-Type: application/json
+
+{
+"title":"마카롱 만들기",
+"content":"사실 만들줄 모름"
+}
+
+######
+GET http://localhost:8080/board/post
