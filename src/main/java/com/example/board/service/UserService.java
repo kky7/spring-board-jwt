@@ -72,6 +72,7 @@ public class UserService {
 
     @Transactional
     public ResponseDto<?> logout(UserDetailsImpl userDetails){
+        System.out.println("logout");
         Users user = userDetails.getUser();
         System.out.println(user.getId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUsers(user);

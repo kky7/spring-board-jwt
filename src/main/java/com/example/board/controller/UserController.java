@@ -27,7 +27,7 @@ public class UserController {
     }
 
      //로그 아웃
-    @GetMapping("/board/member/logout")
+    @PostMapping("/board/auth/member/logout")
     public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return userService.logout(userDetails);
     }

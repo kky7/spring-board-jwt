@@ -18,7 +18,7 @@ Content-Type: application/json
 
 #######
 POST http://localhost:8080/board/auth/post
-Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyMTkwNSwiVVNFUl9OQU1FIjoia2trMTIifQ.Wg8hyG-eaZmUSFIiQ17vFp1yRCFJSGx37ZZqhK3Krl8
+Authorization:BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjMzOSwiVVNFUl9OQU1FIjoia2trMTIifQ.OUQHzLRC54zH0wnO0-Yf9G6oEnyI9LSOtKJGBhKX_lc
 Content-Type: application/json
 
 {
@@ -27,7 +27,8 @@ Content-Type: application/json
 }
 
 ######
-GET http://localhost:8080/board/member/logout
+POST http://localhost:8080/board/auth/member/logout
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjI2MiwiVVNFUl9OQU1FIjoia2trMTIifQ.Ud1hklD8eMaXI8xE6Ym2QtDGBxquXi79EnYtnmdLFso
 
 #####
 POST http://localhost:8080/board/member/signup
@@ -50,7 +51,7 @@ Content-Type: application/json
 
 #######
 POST http://localhost:8080/board/auth/post
-Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyMTkzNywiVVNFUl9OQU1FIjoia3lreSJ9.m9PKYDTh7sHUNeh3cE9X6Qwd0zPZRlKT3_lnqmlXJe8
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjQzMywiVVNFUl9OQU1FIjoia3lreSJ9.W8Fp5TFX84FKomoeNQC-1kfHSswo0IRsIouylumNWGM
 Content-Type: application/json
 
 {
@@ -70,7 +71,7 @@ GET http://localhost:8080/board/post/4
 
 #######
 PUT http://localhost:8080/board/auth/post/2
-Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyMTkzNywiVVNFUl9OQU1FIjoia3lreSJ9.m9PKYDTh7sHUNeh3cE9X6Qwd0zPZRlKT3_lnqmlXJe8
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjQzMywiVVNFUl9OQU1FIjoia3lreSJ9.W8Fp5TFX84FKomoeNQC-1kfHSswo0IRsIouylumNWGM
 Content-Type: application/json
 
 {
@@ -80,7 +81,7 @@ Content-Type: application/json
 
 #######
 PUT http://localhost:8080/board/auth/post/1
-Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyMTkzNywiVVNFUl9OQU1FIjoia3lreSJ9.m9PKYDTh7sHUNeh3cE9X6Qwd0zPZRlKT3_lnqmlXJe8
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjQzMywiVVNFUl9OQU1FIjoia3lreSJ9.W8Fp5TFX84FKomoeNQC-1kfHSswo0IRsIouylumNWGM
 Content-Type: application/json
 
 {
@@ -90,4 +91,5 @@ Content-Type: application/json
 
 
 #####
-
+DELETE http://localhost:8080/board/auth/post/2
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYyNjQzMywiVVNFUl9OQU1FIjoia3lreSJ9.W8Fp5TFX84FKomoeNQC-1kfHSswo0IRsIouylumNWGM

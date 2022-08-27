@@ -81,9 +81,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .httpBasic().disable()
-                .logout()
-                .logoutUrl("/board/member/logout")
-            .and()
                 .authorizeRequests((authz)->authz
                         .antMatchers("/board/auth/**", "board/member/**").authenticated()
                         .anyRequest().permitAll())

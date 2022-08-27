@@ -1,11 +1,13 @@
 package com.example.board.entity;
 
+import com.example.board.dto.request.PostRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -22,10 +24,9 @@ public class RefreshToken extends Timestamped {
     @OneToOne(fetch = FetchType.LAZY)
     private Users users;
 
-    @Column(nullable = false)
     private String tokenValue;
 
     public void updateValue(String token) {
-        this.tokenValue = token;
+    this.tokenValue = token;
     }
 }
