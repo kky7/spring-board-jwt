@@ -22,6 +22,7 @@ public class UserController {
     // Form login을 사용하여 인증을 한다.
     // -> UsernamePasswordAuthenticationFilter를 이용하여 인증을 한다.
     // UsernamePasswordAuthenticationFilter를 상속받는 Login Filter에서  HttpServletRequest request를 통해 username과 password를 받는다.
+    // "/login" uri를 통해서만 로그인이 되도록 정해져 있기 때문에 loginFilter.setFilterProcessesUrl("/board/member/login"); 으로 로그인 uri를 지정해주어야 한다.
 
     //회원가입 - 모두 접근 가능
     @PostMapping("/signup")

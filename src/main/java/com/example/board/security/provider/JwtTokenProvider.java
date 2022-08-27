@@ -1,13 +1,29 @@
 package com.example.board.security.provider;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.board.security.UserDetailsImpl;
-import com.example.board.security.jwt.TokenProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
-public final class JwtTokenProvider {
+@RequiredArgsConstructor
+public class JwtTokenProvider {
+
+    @Resource(name="userDetailsServiceImpl")
+    private UserDetailsService userDetailsService;
+
+    // 사용 알고리즘
+    private static Algorithm generateAlgorithm() {
+        return Algorithm.HMAC256(TokenProperties.JWT_SECRET);
+    }
 
     //Access Token 생성
     public static String generateAccessJwtToken(UserDetailsImpl userDetails){
@@ -15,8 +31,11 @@ public final class JwtTokenProvider {
         return JWT.create()
                 // 토큰 발급자
                 .withIssuer("ky")
+                // user name으로 서명 
                 .withClaim(TokenProperties.CLAIM_USER_NAME, userDetails.getUsername())
+                // 기한 설정
                 .withClaim(TokenProperties.CLAIM_EXPIRED_TIME, new Date(System.currentTimeMillis() + TokenProperties.ACCESS_JWT_TOKEN_VALID_TIME))
+                // 해당 알고리즘으로 생성
                 .sign(generateAlgorithm());
 
     }
@@ -33,7 +52,27 @@ public final class JwtTokenProvider {
     }
 
 
-    private static Algorithm generateAlgorithm() {
-        return Algorithm.HMAC256(TokenProperties.JWT_SECRET);
+    // jwt token 복호화
+    public static DecodedJWT JwtDecoder(String TokenStringValue) {
+
+        DecodedJWT decodedJWT = null;
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(TokenProperties.JWT_SECRET);
+            JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+            decodedJWT = jwtVerifier.verify(TokenStringValue);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
+        }
+
+        return decodedJWT;
+
     }
+
+   // 권한 부여
+   public Authentication getAuthentication(String username) {
+       UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+       return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+   }
+
 }

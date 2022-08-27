@@ -19,9 +19,9 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     private  boolean isInUserCheck(String username){
-        Optional<Users> findUser = userRepository.findByUsername(username);
+        Users user = userRepository.findByUsername(username);
 
-        return findUser.isEmpty();
+        return user == null;
     }
 
     private boolean userStrCheck (String username){

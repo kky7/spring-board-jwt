@@ -1,4 +1,4 @@
-package com.example.board.security.jwt;
+package com.example.board.security.provider;
 
 public interface TokenProperties {
     String AUTH_HEADER = "Authorization";

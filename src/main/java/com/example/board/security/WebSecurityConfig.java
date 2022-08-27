@@ -1,7 +1,9 @@
 package com.example.board.security;
 
 import com.example.board.repository.UserRepository;
+import com.example.board.security.filter.CustomJwtAuthFilter;
 import com.example.board.security.filter.LoginFilter;
+import com.example.board.security.provider.JwtTokenProvider;
 import com.example.board.security.provider.LoginAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -74,11 +76,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
         // 서버에서 인증은 JWT로 인증하기 때문에 Session의 생성을 막습니다.
                 .addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomJwtAuthFilter(authenticationManager(), jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-                .formLogin().disable()
                 .httpBasic().disable()
                 .logout()
                 .logoutUrl("/board/member/logout")

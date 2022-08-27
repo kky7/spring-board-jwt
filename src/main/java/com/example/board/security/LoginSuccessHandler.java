@@ -6,7 +6,7 @@ import com.example.board.entity.Users;
 import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.provider.JwtTokenProvider;
-import com.example.board.security.jwt.TokenProperties;
+import com.example.board.security.provider.TokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.NoArgsConstructor;
