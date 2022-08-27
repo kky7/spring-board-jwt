@@ -1,11 +1,13 @@
 package com.example.board.service;
 
-import com.example.board.dto.PostListDto;
-import com.example.board.dto.PostRequestDto;
-import com.example.board.dto.ResponseDto;
-import com.example.board.dto.passwordDto;
+import com.example.board.dto.request.PostListDto;
+import com.example.board.dto.request.PostRequestDto;
+import com.example.board.dto.response.PostResponseDto;
+import com.example.board.dto.response.ResponseDto;
 import com.example.board.entity.Post;
+import com.example.board.entity.Users;
 import com.example.board.repository.PostRepository;
+import com.example.board.repository.UserRepository;
 import com.example.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,29 +24,36 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ResponseDto<?> createPost(PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-
         String username = userDetails.getUsername();
-        Long userId = userDetails.getUserId();
 
-        Post post = new Post(requestDto, username, userId);
+        Users user = userRepository.findByUsername(username);
+
+        Post post = new Post(requestDto, user);
 
         postRepository.save(post);
 
-        return ResponseDto.success(post);
+        PostResponseDto postResponseDto = new PostResponseDto(post.getId(), post.getTitle(),post.getContent(),
+                username,post.getCreatedAt(),post.getModifiedAt());
+
+        return ResponseDto.success(postResponseDto);
     }
 
     @Transactional(readOnly = true)
     public ResponseDto<?> getPost(Long id) {
-        Optional<Post> optionalPost = postRepository.findById(id);
+        Post post = postRepository.findById(id).orElse(null);
 
-        if (optionalPost.isEmpty()) {
+        if (post == null) {
             return ResponseDto.fail("NULL_POST_ID", "post id isn't exist");
+        } else{
+            PostResponseDto postResponseDto = new PostResponseDto(post.getId(),post.getTitle(),post.getContent(),
+                    post.getUser().getUsername(),post.getCreatedAt(),post.getModifiedAt());
+            return ResponseDto.success(postResponseDto);
         }
 
-        return ResponseDto.success(optionalPost.get());
     }
 
     @Transactional(readOnly = true)
@@ -55,7 +64,7 @@ public class PostService {
 
         if (!post_list.isEmpty()){
             for(Post post : post_list){
-                PostListDto get_post = new PostListDto(post.getId(),post.getCreatedAt(),post.getTitle(),post.getUsername());
+                PostListDto get_post = new PostListDto(post.getId(),post.getCreatedAt(),post.getTitle(),post.getUser().getUsername());
 
                 postListDtos.add(get_post);
             }

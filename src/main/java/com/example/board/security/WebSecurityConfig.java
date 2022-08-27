@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
         // 서버에서 인증은 JWT로 인증하기 때문에 Session의 생성을 막습니다.
                 .addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new CustomJwtAuthFilter(authenticationManager(), jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomJwtAuthFilter(authenticationManager(),userRepository), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

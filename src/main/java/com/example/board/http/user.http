@@ -16,3 +16,12 @@ Content-Type: application/json
   "password":"1234"
 }
 
+#######
+POST http://localhost:8080/board/auth/post
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTU5NTA5NywiVVNFUl9OQU1FIjoia3libG9nIn0.0W9y5swN8Lk2ZEau0-LhOrfxjH8Atxotb2VEerEDwzw
+Content-Type: application/json
+
+{
+"title":"나의 블로그",
+"content":"내가 만든 블로그 짱"
+}

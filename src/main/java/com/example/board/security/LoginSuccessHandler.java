@@ -1,6 +1,6 @@
 package com.example.board.security;
 
-import com.example.board.dto.ResponseDto;
+import com.example.board.dto.response.ResponseDto;
 import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
 import com.example.board.repository.RefreshTokenRepository;

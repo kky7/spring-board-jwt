@@ -1,15 +1,10 @@
 package com.example.board.controller;
 
-import com.example.board.dto.ResponseDto;
-import com.example.board.dto.UserLoginDto;
-import com.example.board.dto.UserSignupDto;
-import com.example.board.security.UserDetailsImpl;
+import com.example.board.dto.response.ResponseDto;
+import com.example.board.dto.request.UserSignupDto;
 import com.example.board.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/board/member")

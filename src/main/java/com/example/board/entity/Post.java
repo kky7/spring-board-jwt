@@ -1,7 +1,6 @@
 package com.example.board.entity;
 
-import com.example.board.dto.PostRequestDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.board.dto.request.PostRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,20 +23,17 @@ public class Post extends Timestamped {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false)
-    private String username;
+
+    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users user;
 
 
-    @JsonIgnore
-    @Column(nullable = false)
-    private Long userId;
-
-
-    public Post(PostRequestDto postRequestDto, String username, Long userId) {
+    public Post(PostRequestDto postRequestDto, Users user) {
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
-        this.username = username;
-        this.userId = userId;
+        this.user = user;
+
     }
 
     public void update(PostRequestDto postRequestDto) {

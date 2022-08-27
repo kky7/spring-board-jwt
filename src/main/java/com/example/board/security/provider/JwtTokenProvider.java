@@ -6,19 +6,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-
-import javax.annotation.Resource;
 import java.util.Date;
 
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-
-    @Resource(name="userDetailsServiceImpl")
-    private UserDetailsService userDetailsService;
 
     // 사용 알고리즘
     private static Algorithm generateAlgorithm() {
@@ -55,6 +46,8 @@ public class JwtTokenProvider {
     // jwt token 복호화
     public static DecodedJWT JwtDecoder(String TokenStringValue) {
 
+        System.out.println(TokenStringValue);
+
         DecodedJWT decodedJWT = null;
 
         try {
@@ -62,17 +55,12 @@ public class JwtTokenProvider {
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
             decodedJWT = jwtVerifier.verify(TokenStringValue);
         } catch (Exception e) {
+            System.out.println("유효한 토큰이 아닙니다");
             throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
         }
 
         return decodedJWT;
 
     }
-
-   // 권한 부여
-   public Authentication getAuthentication(String username) {
-       UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-       return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-   }
 
 }

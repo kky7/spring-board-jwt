@@ -1,5 +1,6 @@
-package com.example.board.dto;
+package com.example.board.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class PostListDto {
     // 작성날짜, 제목, 유저네임
     private Long id;
@@ -14,11 +16,5 @@ public class PostListDto {
     private String title;
     private String username;
 
-    public PostListDto(Long id, LocalDateTime createdAt, String title, String username){
-        this.id = id;
-        this.createdAt = createdAt;
-        this.title = title;
-        this.username = username;
-    }
 }
 

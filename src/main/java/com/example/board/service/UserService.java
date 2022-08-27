@@ -1,15 +1,14 @@
 package com.example.board.service;
 
-import com.example.board.dto.ResponseDto;
-import com.example.board.dto.UserLoginDto;
-import com.example.board.dto.UserSignupDto;
+import com.example.board.dto.response.ResponseDto;
+import com.example.board.dto.request.UserLoginDto;
+import com.example.board.dto.request.UserSignupDto;
 import com.example.board.entity.Users;
 import com.example.board.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service

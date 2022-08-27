@@ -1,8 +1,7 @@
 package com.example.board.controller;
 
-import com.example.board.dto.PostRequestDto;
-import com.example.board.dto.ResponseDto;
-import com.example.board.dto.passwordDto;
+import com.example.board.dto.request.PostRequestDto;
+import com.example.board.dto.response.ResponseDto;
 import com.example.board.security.UserDetailsImpl;
 import com.example.board.service.PostService;
 import lombok.RequiredArgsConstructor;

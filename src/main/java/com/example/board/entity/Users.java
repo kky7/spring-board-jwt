@@ -1,6 +1,6 @@
 package com.example.board.entity;
 
-import com.example.board.dto.UserLoginDto;
+import com.example.board.dto.request.UserLoginDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
