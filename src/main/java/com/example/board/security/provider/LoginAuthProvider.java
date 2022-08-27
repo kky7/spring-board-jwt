@@ -31,6 +31,8 @@ public class LoginAuthProvider implements AuthenticationProvider {
         UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
         
         // 로그인시 사용한 password와 DB에 저장된 password의 일치 여부 확인
+        // password: raw password 암호화 안된 것(요청을 통해 들어온 것)
+        // userDetails.getPassword() : DB에 저장되어있는 암호화된 password
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException(userDetails.getUsername() + "Invalid password");
         }

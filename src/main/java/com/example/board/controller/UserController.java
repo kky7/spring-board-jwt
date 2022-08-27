@@ -31,9 +31,9 @@ public class UserController {
     }
 
      //로그 아웃
-    @GetMapping("/logout")
-    public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return userService.logout(userDetails);
-    }
+//    @GetMapping("/logout")
+//    public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
+//        return userService.logout(userDetails);
+//    }
 
 }

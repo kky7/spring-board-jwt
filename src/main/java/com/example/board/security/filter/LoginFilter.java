@@ -38,7 +38,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             String username = requestBody.get("username").asText();
             String password = requestBody.get("password").asText();
 
-            // UernamePasswordAuthenticationToken 객체 생성 -> Authentication 인터페이스의 구현체
+            // UernamePasswordAuthenticationToken 객체 생성(인증 토큰) -> Authentication 인터페이스의 구현체
             authRequestToken = new UsernamePasswordAuthenticationToken(username, password);
         } catch (Exception e) {
             throw new RuntimeException("username, password 입력이 필요합니다. (JSON)");

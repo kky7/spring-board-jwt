@@ -28,14 +28,14 @@ public class Users extends Timestamped {
         this.password = userLoginDto.getPassword();
     }
 
-    @JsonIgnore
-    @Column
-    private String refreshToken;
-
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
+//    @JsonIgnore
+//    @Column
+//    private String refreshToken;
+//
+//
+//    public void setRefreshToken(String refreshToken) {
+//        this.refreshToken = refreshToken;
+//    }
 
     @JsonIgnore
     @Transient // table에서 보이지 않기

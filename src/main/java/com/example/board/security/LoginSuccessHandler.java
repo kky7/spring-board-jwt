@@ -1,9 +1,12 @@
 package com.example.board.security;
 
 import com.example.board.dto.ResponseDto;
+import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
+import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.jwt.JwtTokenUtils;
+import com.example.board.security.jwt.TokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.NoArgsConstructor;
@@ -26,13 +29,12 @@ import java.io.IOException;
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    public static final String AUTH_HEADER = "authorization";
-    public static final String REFRESH_HEADER = "Refresh-Token";
-    public static final String TOKEN_TYPE = "BEARER ";
-
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
 
     public LoginSuccessHandler(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -54,13 +56,18 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
 
         // Response 헤더에 Access, Refresh 토큰 담아줌
-        response.addHeader(AUTH_HEADER, TOKEN_TYPE + accessToken);
-        response.addHeader(REFRESH_HEADER, TOKEN_TYPE + refreshToken);
+        response.addHeader(TokenProperties.AUTH_HEADER, TokenProperties.TOKEN_TYPE + accessToken);
+        response.addHeader(TokenProperties.REFRESH_HEADER, TokenProperties.TOKEN_TYPE + refreshToken);
+        response.addHeader("Access-Token-Valid-Time", Integer.toString(TokenProperties.ACCESS_JWT_TOKEN_VALID_TIME));
 
         Users user = userDetails.getUser();
-        //Refresh Token DB에 저장
-        user.setRefreshToken(refreshToken);
-        userRepository.save(user);
+        RefreshToken refreshTokenObject = RefreshToken.builder()
+                .id(user.getId())
+                .users(user)
+                .tokenValue(refreshToken)
+                .build();
+
+        refreshTokenRepository.save(refreshTokenObject);
 
         // json형식으로 response
         response.setContentType("application/json");

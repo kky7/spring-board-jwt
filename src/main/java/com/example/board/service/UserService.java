@@ -3,6 +3,7 @@ package com.example.board.service;
 import com.example.board.dto.ResponseDto;
 import com.example.board.dto.UserLoginDto;
 import com.example.board.dto.UserSignupDto;
+import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.UserDetailsImpl;
@@ -76,10 +77,11 @@ public class UserService {
         }
     }
 
-    @Transactional
-    public ResponseDto<?> logout(UserDetailsImpl userDetails){
-        Users user = userDetails.getUser();
-        user.setRefreshToken(null);
-        return ResponseDto.success(null);
-    }
+//    @Transactional
+//    public ResponseDto<?> logout(UserDetailsImpl userDetails){
+//        Users user = userDetails.getUser();
+//        RefreshToken refreshToken = new RefreshToken();
+//
+//        return ResponseDto.success(null);
+//    }
 }
