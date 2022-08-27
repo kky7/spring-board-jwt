@@ -2,12 +2,13 @@ package com.example.board.controller;
 
 import com.example.board.dto.response.ResponseDto;
 import com.example.board.dto.request.UserSignupDto;
+import com.example.board.security.UserDetailsImpl;
 import com.example.board.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/board/member")
 @AllArgsConstructor
 public class UserController {
 
@@ -20,15 +21,15 @@ public class UserController {
     // "/login" uri를 통해서만 로그인이 되도록 정해져 있기 때문에 loginFilter.setFilterProcessesUrl("/board/member/login"); 으로 로그인 uri를 지정해주어야 한다.
 
     //회원가입 - 모두 접근 가능
-    @PostMapping("/signup")
+    @PostMapping("/board/member/signup")
     public ResponseDto<?> signup(@RequestBody UserSignupDto userSignupDto) {
         return userService.signup(userSignupDto);
     }
 
      //로그 아웃
-//    @GetMapping("/logout")
-//    public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return userService.logout(userDetails);
-//    }
+    @GetMapping("/board/member/logout")
+    public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return userService.logout(userDetails);
+    }
 
 }

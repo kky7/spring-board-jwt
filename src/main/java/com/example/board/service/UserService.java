@@ -3,18 +3,23 @@ package com.example.board.service;
 import com.example.board.dto.response.ResponseDto;
 import com.example.board.dto.request.UserLoginDto;
 import com.example.board.dto.request.UserSignupDto;
+import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
+import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
+import com.example.board.security.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     private  boolean isInUserCheck(String username){
@@ -51,7 +56,7 @@ public class UserService {
 
         else if (!passwordStrCheck(password)) {return ResponseDto.fail("WRONG PASSWORD", "password must consist of 4 or more, 32 or less alphabetic lowercase letters(a~z) and numbers (0~9)");}
 
-        else if (!isSamePassword(password, ConfirmPassword)) {return ResponseDto.fail("CHECK PASSWORD", "password and confirm password are not the same.");}
+        else if (!isSamePassword(password, ConfirmPassword)) {return ResponseDto.fail("CHECK PASSWORD", "passwords are not the same.");}
 
         else {
             userLoginDto.setPassword(passwordEncoder.encode(password));
@@ -65,11 +70,18 @@ public class UserService {
         }
     }
 
-//    @Transactional
-//    public ResponseDto<?> logout(UserDetailsImpl userDetails){
-//        Users user = userDetails.getUser();
-//        RefreshToken refreshToken = new RefreshToken();
-//
-//        return ResponseDto.success(null);
-//    }
+    @Transactional
+    public ResponseDto<?> logout(UserDetailsImpl userDetails){
+        Users user = userDetails.getUser();
+        System.out.println(user.getId());
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUsers(user);
+
+        if(!refreshToken.isEmpty()){
+            RefreshToken refreshToken1 = refreshToken.get();
+            refreshToken1.updateValue(null);
+        }
+
+
+        return ResponseDto.success(null);
+    }
 }

@@ -29,15 +29,15 @@ public class PostController {
     public ResponseDto<?> getAllPosts() {
         return postService.getAllPost();
     }
-//
-//    @PutMapping("/post/{id}")
-//    public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
-//        return postService.updatePost(id, postRequestDto);
-//    }
-//
-//    @DeleteMapping("/post/{id}")
-//    public ResponseDto<?> deletePost(@PathVariable Long id) {
-//        return postService.deletePost(id);
-//    }
+
+    @PutMapping("/auth/post/{id}")
+    public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.updatePost(id, postRequestDto, userDetails);
+    }
+
+    @DeleteMapping("/auth/post/{id}")
+    public ResponseDto<?> deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.deletePost(id, userDetails);
+    }
 
 }

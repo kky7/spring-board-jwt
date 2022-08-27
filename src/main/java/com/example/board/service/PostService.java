@@ -10,6 +10,7 @@ import com.example.board.repository.PostRepository;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -72,35 +74,42 @@ public class PostService {
 
         return ResponseDto.success(postListDtos);
     }
-//
-//    @Transactional
-//    public ResponseDto<Post> updatePost(Long id, PostRequestDto requestDto) {
-//        Optional<Post> optionalPost = postRepository.findById(id);
-//
-//        if (optionalPost.isEmpty()) {
-//            return ResponseDto.fail("NULL_POST_ID", "post id isn't exist");
-//        }
-//
-//        Post post = optionalPost.get();
-//        post.update(requestDto);
-//
-//        return ResponseDto.success(post);
-//    }
-//
-//    @Transactional
-//    public ResponseDto<?> deletePost(Long id) {
-//        Optional<Post> optionalPost = postRepository.findById(id);
-//
-//        if (optionalPost.isEmpty()) {
-//            return ResponseDto.fail("NOT_FOUND", "post id is not exist");
-//        }
-//
-//        Post post = optionalPost.get();
-//
-//        postRepository.delete(post);
-//
-//        return ResponseDto.success(true);
-//    }
+
+    @Transactional
+    public ResponseDto<?> updatePost(Long id, PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        String username = userDetails.getUsername();
+        Users user = userRepository.findByUsername(username);
+        Post post = postRepository.findById(id).orElse(null);
+
+        if (post == null) {
+            return ResponseDto.fail("NULL_POST_ID", "post id isn't exist");
+        } else if (Objects.equals(user.getId(), post.getUser().getId())){
+            post.update(requestDto);
+            PostResponseDto postResponseDto = new PostResponseDto(post.getId(), post.getTitle(),post.getContent(),
+                    username,post.getCreatedAt(),post.getModifiedAt());
+            return ResponseDto.success(postResponseDto);
+        } else {
+            return ResponseDto.fail("AUTHOR MISMATCH","only author can modify");
+        }
+    }
+
+    @Transactional
+    public ResponseDto<?> deletePost(Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        String username = userDetails.getUsername();
+        Users user = userRepository.findByUsername(username);
+        Post post = postRepository.findById(id).orElse(null);
+
+        if (post == null) {
+            return ResponseDto.fail("NULL_POST_ID", "post id isn't exist");
+        } else if (Objects.equals(user.getId(), post.getUser().getId())){
+            postRepository.deleteById(id);
+            return ResponseDto.success(true);
+        } else {
+            return ResponseDto.fail("AUTHOR MISMATCH","Only authors can delete");
+        }
+
+    }
 
 
 }
