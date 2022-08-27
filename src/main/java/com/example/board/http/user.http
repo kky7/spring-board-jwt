@@ -18,7 +18,7 @@ Content-Type: application/json
 
 #######
 POST http://localhost:8080/board/auth/post
-Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTU5NTA5NywiVVNFUl9OQU1FIjoia3libG9nIn0.0W9y5swN8Lk2ZEau0-LhOrfxjH8Atxotb2VEerEDwzw
+Authorization: BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJreSIsIkVYUElSRURfVElNRSI6MTY2MTYwMzkxNywiVVNFUl9OQU1FIjoia3libG9nIn0.11LJrLxA1pcxXaW_lACTd0nRWmOzEHkDz5jLFgHht-U
 Content-Type: application/json
 
 {

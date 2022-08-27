@@ -70,11 +70,9 @@ public class CustomJwtAuthFilter  extends BasicAuthenticationFilter {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,userDetails.getPassword(),userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
             System.out.println("로그인 성공");
-            chain.doFilter(request,response);
-        }else{
-            System.out.println("서명 없음");
-        }
 
+        }
+        chain.doFilter(request,response);
     }
     
     // FilterChain : Filter가 여러개 모여서 하나의 체인을 형성하는 것
