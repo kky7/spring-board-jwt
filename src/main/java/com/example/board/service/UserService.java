@@ -1,5 +1,6 @@
 package com.example.board.service;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.board.dto.response.ResponseDto;
 import com.example.board.dto.request.UserLoginDto;
 import com.example.board.dto.request.UserSignupDto;
@@ -7,11 +8,17 @@ import com.example.board.entity.Users;
 import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.UserDetailsImpl;
+import com.example.board.security.provider.TokenProperties;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.regex.Pattern;
+
+import static com.example.board.security.provider.JwtTokenProvider.JwtDecoder;
 
 @Service
 @AllArgsConstructor
@@ -78,8 +85,22 @@ public class UserService {
         return ResponseDto.success(null);
     }
 
-    //    @Transactional
-//    public ResponseDto<?> createNewAccessToken(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//
-//    }
+    @Transactional
+    public ResponseDto<?> createNewAccessToken(HttpServletRequest request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        // access 토큰, refresh token 헤더에 받음
+        String accessToken = request.getHeader(TokenProperties.AUTH_HEADER);
+        String refreshToken = request.getHeader(TokenProperties.REFRESH_HEADER);
+
+        // refresh 토큰 겅증
+        DecodedJWT decodedRefreshToken = JwtDecoder(refreshToken);
+        String username = decodedRefreshToken.getClaim(TokenProperties.CLAIM_USER_NAME).asString();
+
+//        Users user
+
+        // access 토큰 생성
+        
+        // 새로 발급한 aceess 토근 헤더에 응답
+
+        return ResponseDto.success("success");
+    }
 }

@@ -4,17 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.board.dto.response.ResponseDto;
 import com.example.board.security.UserDetailsImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+//    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // 사용 알고리즘
     private static Algorithm generateAlgorithm() {

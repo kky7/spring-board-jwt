@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @AllArgsConstructor
 public class UserController {
@@ -30,6 +32,11 @@ public class UserController {
     @PostMapping("/board/auth/member/logout")
     public ResponseDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return userService.logout(userDetails);
+    }
+
+    @PostMapping("/auth/reissue")
+    public ResponseDto<?> createNewAccessToken(HttpServletRequest request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.createNewAccessToken(request, userDetails);
     }
 
 }

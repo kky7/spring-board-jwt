@@ -40,9 +40,4 @@ public class PostController {
         return postService.deletePost(id, userDetails);
     }
 
-//    @PostMapping("/auth/refreshToken")
-//    public ResponseDto<?> createNewAccessToken(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return postService.createNewAccessToken(userDetails);
-//    }
-
 }
