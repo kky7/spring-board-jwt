@@ -30,16 +30,16 @@ public class PostService {
 
     @Transactional
     public ResponseDto<?> createPost(PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        String username = userDetails.getUsername();
+//        String username = userDetails.getUsername();
 
-        Users user = userRepository.findByUsername(username);
+        Users user = userDetails.getUser();
 
         Post post = new Post(requestDto, user);
 
         postRepository.save(post);
 
         PostResponseDto postResponseDto = new PostResponseDto(post.getId(), post.getTitle(),post.getContent(),
-                username,post.getCreatedAt(),post.getModifiedAt());
+                userDetails.getUsername(),post.getCreatedAt(),post.getModifiedAt());
 
         return ResponseDto.success(postResponseDto);
     }
@@ -77,8 +77,7 @@ public class PostService {
 
     @Transactional
     public ResponseDto<?> updatePost(Long id, PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        String username = userDetails.getUsername();
-        Users user = userRepository.findByUsername(username);
+        Users user = userDetails.getUser();
         Post post = postRepository.findById(id).orElse(null);
 
         if (post == null) {
@@ -86,7 +85,7 @@ public class PostService {
         } else if (Objects.equals(user.getId(), post.getUser().getId())){
             post.update(requestDto);
             PostResponseDto postResponseDto = new PostResponseDto(post.getId(), post.getTitle(),post.getContent(),
-                    username,post.getCreatedAt(),post.getModifiedAt());
+                    userDetails.getUsername(),post.getCreatedAt(),post.getModifiedAt());
             return ResponseDto.success(postResponseDto);
         } else {
             return ResponseDto.fail("AUTHOR MISMATCH","only author can modify");
@@ -96,8 +95,7 @@ public class PostService {
     @Transactional
     public ResponseDto<?> deletePost(Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        String username = userDetails.getUsername();
-        Users user = userRepository.findByUsername(username);
+        Users user = userDetails.getUser();
         Post post = postRepository.findById(id).orElse(null);
 
         if (post == null) {
@@ -110,11 +108,5 @@ public class PostService {
         }
 
     }
-
-//    @Transactional
-//    public ResponseDto<?> createNewAccessToken(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//
-//    }
-
 
 }

@@ -3,7 +3,6 @@ package com.example.board.service;
 import com.example.board.dto.response.ResponseDto;
 import com.example.board.dto.request.UserLoginDto;
 import com.example.board.dto.request.UserSignupDto;
-import com.example.board.entity.RefreshToken;
 import com.example.board.entity.Users;
 import com.example.board.repository.RefreshTokenRepository;
 import com.example.board.repository.UserRepository;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
@@ -75,14 +73,13 @@ public class UserService {
         System.out.println("logout");
         Users user = userDetails.getUser();
         System.out.println(user.getId());
-        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUsers(user);
-
-        if(!refreshToken.isEmpty()){
-            RefreshToken refreshToken1 = refreshToken.get();
-            refreshToken1.updateValue(null);
-        }
-
+        refreshTokenRepository.findByUsers(user).ifPresent(refreshTokenRepository::delete);
 
         return ResponseDto.success(null);
     }
+
+    //    @Transactional
+//    public ResponseDto<?> createNewAccessToken(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//
+//    }
 }
