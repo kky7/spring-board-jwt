@@ -9,6 +9,7 @@ import com.example.board.entity.Users;
 import com.example.board.repository.PostRepository;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.UserDetailsImpl;
+import com.example.board.security.provider.TokenProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +32,6 @@ public class PostService {
 
     @Transactional
     public ResponseDto<?> createPost(PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        String username = userDetails.getUsername();
-
         Users user = userDetails.getUser();
 
         Post post = new Post(requestDto, user);

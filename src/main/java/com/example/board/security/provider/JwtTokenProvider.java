@@ -50,16 +50,30 @@ public class JwtTokenProvider {
 
         DecodedJWT decodedJWT = null;
 
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(TokenProperties.JWT_SECRET);
-            JWTVerifier jwtVerifier = JWT.require(algorithm).build();
-            decodedJWT = jwtVerifier.verify(TokenStringValue);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
-        }
+        Algorithm algorithm = Algorithm.HMAC256(TokenProperties.JWT_SECRET);
+        JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+        decodedJWT = jwtVerifier.verify(TokenStringValue);
 
         return decodedJWT;
 
     }
+
+//        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+//        Claims claims;
+//        try {
+//            claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+//        } catch (ExpiredJwtException e) {
+//            claims = e.getClaims();
+//        }
+//
+//        if (claims.getExpiration().toInstant().toEpochMilli() < Instant.now().toEpochMilli()) {
+//            response.setContentType("application/json;charset=UTF-8");
+//            response.getWriter().println(
+//                    new ObjectMapper().writeValueAsString(
+//                            ResponseDto.fail("BAD_REQUEST", "Token이 유효햐지 않습니다.")
+//                    )
+//            );
+//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//        }
 
 }
