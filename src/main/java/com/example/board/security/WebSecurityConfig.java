@@ -3,7 +3,6 @@ package com.example.board.security;
 import com.example.board.repository.UserRepository;
 import com.example.board.security.filter.CustomJwtAuthFilter;
 import com.example.board.security.filter.LoginFilter;
-import com.example.board.security.provider.JwtTokenProvider;
 import com.example.board.security.provider.LoginAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

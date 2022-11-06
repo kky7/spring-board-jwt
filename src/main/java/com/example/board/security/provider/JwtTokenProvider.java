@@ -11,7 +11,6 @@ import java.util.Date;
 
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-//    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // 사용 알고리즘
     private static Algorithm generateAlgorithm() {
@@ -57,23 +56,5 @@ public class JwtTokenProvider {
         return decodedJWT;
 
     }
-
-//        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-//        Claims claims;
-//        try {
-//            claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-//        } catch (ExpiredJwtException e) {
-//            claims = e.getClaims();
-//        }
-//
-//        if (claims.getExpiration().toInstant().toEpochMilli() < Instant.now().toEpochMilli()) {
-//            response.setContentType("application/json;charset=UTF-8");
-//            response.getWriter().println(
-//                    new ObjectMapper().writeValueAsString(
-//                            ResponseDto.fail("BAD_REQUEST", "Token이 유효햐지 않습니다.")
-//                    )
-//            );
-//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//        }
 
 }

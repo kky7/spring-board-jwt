@@ -38,7 +38,9 @@ public class LoginAuthProvider implements AuthenticationProvider {
         }
         
         // password일치 -> 인증 성공 -> 인증이 완료된 Authentication 객체 생성 -> LoginSuccessHanlder
-        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        // UsernamePasswordAuthenticationToken(Object principal, Object credentials,
+        //			Collection<? extends GrantedAuthority> authorities)
+        return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }
 
     // 인증처리 가능 여부 판단 기준: supports 함수를 통해 "인증정보의 클래스 타입"을 보고 판단
